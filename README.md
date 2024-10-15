@@ -3,7 +3,7 @@
 This repository contains the VHDL implementation of a 4-bit multiplier and its components. The project is structured in a hierarchical manner, with the multiplier using a 4-bit full adder, which in turn uses a 1-bit adder.
 
 It decomposes the multiplication operation into 4 additions
-$$
+\[
 A\times B = a_{3} a_{2} a_{1} a_{0} \times b_{3} b_{2} b_{1} b_{0} \Leftrightarrow 
 \begin{array}
 & & & & & a_{0}b_{3} & a_{0}b_{2} & a_{0}b_{1} & a_{0}b_{0} \\
@@ -14,7 +14,7 @@ A\times B = a_{3} a_{2} a_{1} a_{0} \times b_{3} b_{2} b_{1} b_{0} \Leftrightarr
 p_{7} & p_{6} & p_{5} & p_{4} & p_{3} & p_{2} & p_{1} & p_{0}
 
 \end{array}
-$$
+\]
 
 
 The overall architecture of the multiplier is specified in the following diagram
@@ -198,10 +198,8 @@ graph TD
 
 #### Implementation Details
 
-- **Data Flow**: None at this level.
 - **Instantiation**: 
   - Instantiates four 1-bit adders (TP1) to create the 4-bit adder.
-- **Process**: No processes used; purely structural design.
 
 #### Signals
 
@@ -229,39 +227,10 @@ cout <= (a AND b) OR (a AND cin) OR (b AND cin);
 
 - **Data Flow**: 
   - Uses concurrent signal assignments to calculate sum and carry.
-- **Instantiation**: None.
-- **Process**: No processes used; purely combinational logic.
 
 #### Signals
 
 - Input: a, b (1-bit addends), cin (carry in)
 - Output: s (sum), cout (carry out)
-
-## Overall Architecture
-
-The project demonstrates a hierarchical design approach:
-
-1. The 4-bit Multiplier (Multiplieur) is the top-level entity, controlling the multiplication process.
-2. It uses a 4-bit Full Adder (FA4bits) for partial product addition.
-3. The 4-bit Full Adder is composed of four 1-bit Adders (TP1).
-
-This structure showcases different VHDL design techniques:
-
-- Use of processes for sequential logic (in the multiplier's FSM).
-- Component instantiation for structural design (in the 4-bit full adder).
-- Concurrent signal assignments for combinational logic (in the 1-bit adder).
-
-## Usage
-
-To use this design:
-
-1. Synthesize the VHDL code for your target FPGA or ASIC technology.
-2. Provide 4-bit inputs A and B to the multiplier.
-3. Control the multiplication process using the Start, Reset, and Clk signals.
-4. Read the 8-bit result from Res when Done is asserted.
-
-## Testing
-
-It is recommended to create a testbench to verify the functionality of each component individually and the entire multiplier system as a whole. The testbench should cover various input combinations and edge cases to ensure correct operation.
 
 
