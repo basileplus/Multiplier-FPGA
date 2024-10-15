@@ -3,18 +3,18 @@
 This repository contains the VHDL implementation of a 4-bit multiplier and its components. The project is structured in a hierarchical manner, with the multiplier using a 4-bit full adder, which in turn uses a 1-bit adder.
 
 It decomposes the multiplication operation into 4 additions
-\[
+```math
 A\times B = a_{3} a_{2} a_{1} a_{0} \times b_{3} b_{2} b_{1} b_{0} \Leftrightarrow 
-\begin{array}
+\begin{align} \hline
 & & & & & a_{0}b_{3} & a_{0}b_{2} & a_{0}b_{1} & a_{0}b_{0} \\
-& & + & a_{1}b_{3} &  a_{1}b_{2} & a_{1}b_{1} & a_{1}b_{0} & 0 \\
- & + &  a_{2}b_{3} & a_{2}b_{2} & a_{2}b_{1} & a_{2}b_{0} & 0 & 0 \\ 
-+ & a_{3}b_{3} & a_{3}b_{2} & a_{3}b_{1} & a_{3}b_{0} & 0 & 0 & 0 \\
-\hline 
-p_{7} & p_{6} & p_{5} & p_{4} & p_{3} & p_{2} & p_{1} & p_{0}
+ & & & + & a_{1}b_{3} &  a_{1}b_{2} & a_{1}b_{1} & a_{1}b_{0} & 0 \\
+ & & + &  a_{2}b_{3} & a_{2}b_{2} & a_{2}b_{1} & a_{2}b_{0} & 0 & 0 \\ 
+ & + & a_{3}b_{3} & a_{3}b_{2} & a_{3}b_{1} & a_{3}b_{0} & 0 & 0 & 0 \\
+& \text{\small carry }\swarrow  &   \downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow \\
+ & p_{7} & p_{6} & p_{5} & p_{4} & p_{3} & p_{2} & p_{1} & p_{0} \\
 
-\end{array}
-\]
+\end{align}
+```
 
 
 The overall architecture of the multiplier is specified in the following diagram
@@ -111,10 +111,10 @@ stateDiagram-v2
     raz --> raz : Start = '1'
     
     note right of Attente : cpt <= "00"
-    note right of Chargement : Areg <= A\nBreg <= B\nDone <= '0'\nRout <= (others => '0')
+    note right of Chargement : Areg <= A, Breg <= B, Done <= '0', Rout <= (others => '0')
     note right of Addition : Rout(7 downto 3) <= Rin
-    note right of Decalage : Areg <= Areg(0) & Areg(3 downto 1)\nRout <= Rout(0) & Rout(7 downto 1)\ncpt <= cpt + 1
-    note right of raz : Done <= '1'\nRes <= Rin(4 downto 0) & Rout(2 downto 0)
+    note right of Decalage : Areg <= Areg(0) & Areg(3 downto 1), Rout <= Rout(0) & Rout(7 downto 1), cpt <= cpt + 1
+    note right of raz : Done <= '1' Res, <= Rin(4 downto 0) & Rout(2 downto 0)
 ```
 
 #### Functionality
